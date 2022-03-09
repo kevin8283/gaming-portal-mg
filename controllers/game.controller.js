@@ -1,4 +1,3 @@
-const { findById } = require("../models/game.model");
 const Game = require("../models/game.model")
 
 const gameController = {
@@ -18,7 +17,10 @@ const gameController = {
         try {
             const game = await Game.findById(req.params.id)
 
-            return res.json(game)
+            if(game) {
+                return res.json(game)
+            }
+            return res.status(404).json("No game found matching the provided ID")
         } 
         catch (error) {
             throw error

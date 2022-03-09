@@ -7,8 +7,8 @@ router.get("/:id", validateGetGameById, getGameById)
 
 router.post("/add", validateAddGame, addGame)
 
-router.put("/edit/:id", validateGetGameById, editGame)
+router.put("/edit/:id", validateGetGameById, validateAddGame, editGame)
 
-router.delete("/delete/:id", validateGetGameById, validateAddGame, deleteGame)
+router.delete("/delete/:id", validateGetGameById, deleteGame)
 
 module.exports = router
