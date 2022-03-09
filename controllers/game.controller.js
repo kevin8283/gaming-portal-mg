@@ -46,9 +46,12 @@ const gameController = {
                 price: req.body.price
             })
 
-            await game.save()
+            if (game) {
+                await game.save()
 
-            return res.json(game)
+                return res.json(game)
+            }
+            return res.status(404).json("No game found")
         }
         catch(e) {
             throw e

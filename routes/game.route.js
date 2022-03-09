@@ -1,13 +1,14 @@
 const router = require("express").Router()
-const { gameController } = require("../controllers/game.controller")
+const { getAllGames, getGameById, addGame, editGame, deleteGame } = require("../controllers/game.controller").gameController
+const { validateAddGame, validateGetGameById } = require("../middlewares/game-validation.middleware").gameMiddlewares
 
-router.get("/", gameController.getAllGames)
-router.get("/:id", gameController.getGameById)
+router.get("/", getAllGames)
+router.get("/:id", validateGetGameById, getGameById)
 
-router.post("/add", gameController.addGame)
+router.post("/add", validateAddGame, addGame)
 
-router.put("/edit/:id", gameController.editGame)
+router.put("/edit/:id", validateGetGameById, editGame)
 
-router.delete("/delete/:id", gameController.deleteGame)
+router.delete("/delete/:id", validateGetGameById, validateAddGame, deleteGame)
 
 module.exports = router
