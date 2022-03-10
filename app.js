@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 const DatabaseConnector = require("./helpers/DatabaseConnector")
 const gameRoute = require("./routes/game.route")
 const clientRoute = require("./routes/client.route")
+const purchaseRoute = require("./routes/purchase.route")
 
 const app = express()
 
@@ -14,6 +15,7 @@ dotenv.config()
 //Routing
 app.use("/games", gameRoute)
 app.use("/clients", clientRoute)
+app.use("/purchases", purchaseRoute)
 
 //Constants declaration
 const port = process.env.PORT || 8080

@@ -14,7 +14,7 @@ const clientsMiddleware = {
 
     validateAddClient: (req, res, next) => {
         const clientSchema = Joi.object({
-            name: Joi.string().alphanum().max(30).required(),
+            name: Joi.string().max(30).required(),
             phone_number: Joi.string().length(10).pattern(/^[0-9]+$/, 'numbers')
         })
 
@@ -28,7 +28,7 @@ const clientsMiddleware = {
 
     validateEditClient: (req, res, next) => {
         const clientSchema = Joi.object({
-            name: Joi.string().alphanum().max(30),
+            name: Joi.string().max(30),
             phone_number: Joi.string().length(10).pattern(/^[0-9]+$/, 'numbers')
         })
 

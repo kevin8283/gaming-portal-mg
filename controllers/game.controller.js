@@ -45,7 +45,9 @@ const gameController = {
             const game = await Game.findOneAndUpdate({_id: req.params.id}, {
                 title: req.body.title,
                 size: req.body.size,
-                price: req.body.price
+                price: req.body.price,
+                clients: req.body.clients,
+                number_of_sales: req.body.number_of_sales
             })
 
             if (game) {
