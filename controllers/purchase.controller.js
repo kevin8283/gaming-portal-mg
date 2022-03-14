@@ -46,14 +46,22 @@ const purchaseController = {
 
     getGamePurchases: async (req, res) => {
         try {
-            const { clients } = await Game.findById(req.params.id, {clients: 1, _id: 0})
+            const clients = await Game.findById(req.params.id, {clients: 1, _id: 0})
 
-            if (clients.length > 0) {
-                const clientWhoPurchased = await Client.find({_id: {$in: clients}})
-
-                return res.json(clientWhoPurchased)
+            if (clients === null) {
+                return res.status(404).json(`ID ${req.params.id} does not match any game`)
             }
-            return res.json(clients)
+
+            else {
+                const clientsIdList = clients.clients
+                if (clientsIdList.length > 0) {
+                    const clientWhoPurchased = await Client.find({_id: {$in: clientsIdList}})
+    
+                    return res.json(clientWhoPurchased)
+                }
+
+                return res.json([]) 
+            }
         } 
         catch (error) {
             throw error
