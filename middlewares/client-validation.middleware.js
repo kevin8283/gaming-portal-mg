@@ -7,7 +7,7 @@ const clientsMiddleware = {
         const result = idSchema.validate(req.params.id)
 
         if(result.error) {
-            return res.status(500).json(result.error.details)
+            return res.status(400).json(result.error.details)
         }
         return next()
     },
@@ -21,7 +21,7 @@ const clientsMiddleware = {
         const result = clientSchema.validate(req.body)
 
         if(result.error) {
-            return res.status(500).json(result.error.details)
+            return res.status(400).json(result.error.details)
         }
         return next()
     },
@@ -35,7 +35,7 @@ const clientsMiddleware = {
         const result = clientSchema.validate(req.body)
 
         if(result.error) {
-            return res.status(500).json(result.error.details)
+            return res.status(400).json(result.error.details)
         }
         return next()
     }

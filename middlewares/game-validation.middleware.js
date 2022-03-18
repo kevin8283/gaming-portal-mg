@@ -7,9 +7,20 @@ const gameMiddlewares = {
         const result = idSchema.validate(req.params.id)
 
         if (result.error) {
-            return res.status(500).json(result.error.details[0].message)
+            return res.status(400).json(result.error.details[0].message)
         }
 
+        return next()
+    },
+
+    validateGetGamesByPage: (req, res, next) => {
+        const pageSchema = Joi.number().min(1).required()
+
+        const result = pageSchema.validate(req.params.page)
+
+        if (result.error) {
+            return res.status(400).json(result.error)
+        }
         return next()
     },
 
@@ -23,7 +34,7 @@ const gameMiddlewares = {
         const result = gameSchema.validate(req.body)
 
         if (result.error) {
-            return res.status(500).json(result.error.details[0].message)
+            return res.status(400).json(result.error.details[0].message)
         }
 
         return next()
@@ -41,7 +52,7 @@ const gameMiddlewares = {
         const result = gameSchema.validate(req.body)
 
         if (result.error) {
-            return res.status(500).json(result.error.details[0].message)
+            return res.status(400).json(result.error.details[0].message)
         }
 
         return next()

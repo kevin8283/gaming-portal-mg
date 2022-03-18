@@ -27,6 +27,20 @@ const gameController = {
         }
     },
 
+    getGamesByPage: async (req, res) => {
+        try {
+            const page = req.params.page
+            const number_of_skips = page === 1 ? 0 : (page - 1) * 50
+
+            const games = await Game.find().skip(number_of_skips).limit(50)
+
+            return res.json(games)
+        }
+        catch(e) {
+            throw e
+        }
+    },
+
     addGame: async (req, res) => {
         try {
             const { title, size, price } = req.body

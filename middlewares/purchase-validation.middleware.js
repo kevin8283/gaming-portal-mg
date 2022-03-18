@@ -7,7 +7,7 @@ const purchaseMiddleware = {
 
         const result = idSchema.validate(id)
         if (result.error) {
-            return res.status(500).json(result.error)
+            return res.status(400).json(result.error)
         }
         return next()
     },
@@ -21,7 +21,7 @@ const purchaseMiddleware = {
 
         const result = purchaseSchema.validate({games_id, client_id})
         if (result.error) {
-            return res.status(500).json(result.error)
+            return res.status(400).json(result.error)
         }
         return next()
     }
