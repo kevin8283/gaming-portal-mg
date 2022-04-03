@@ -13,6 +13,20 @@ const gameMiddlewares = {
         return next()
     },
 
+    validateGetGameByTitle: (req, res, next) => {
+        const title = req.body.title
+        
+        const titleSchema = Joi.string().min(1).required()
+
+        const result = titleSchema.validate(title)
+
+        if (result.error) {
+            return res.status(400).json(result.error)
+        }
+
+        return next()
+    },
+
     validateGetGamesByPage: (req, res, next) => {
         const pageSchema = Joi.number().min(1).required()
 

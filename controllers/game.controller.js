@@ -1,4 +1,5 @@
 const Game = require("../models/game.model")
+const Client = require("../models/client.model")
 
 const gameController = {
 
@@ -17,13 +18,53 @@ const gameController = {
         try {
             const game = await Game.findById(req.params.id)
 
-            if(game) {
+            if (game) {
                 return res.json(game)
             }
             return res.status(404).json("No game found matching the provided ID")
         } 
         catch (error) {
             throw error
+        }
+    },
+
+    getGameByTitle: async (req, res) => {
+        try {
+            const title = req.body.title
+            const filter = req.body.filter
+            const regex = new RegExp(`${title}`, 'i')
+            let results = []
+
+            if (filter === "all") {
+                const games = await Game.find({title: regex})
+                const clients = await Client.find({name: regex})
+
+                results = [...games, ...clients]
+
+                if (results.length > 0) {
+                    return res.json(results)
+                }
+                return res.json([])
+            }
+            else if (filter === "games") {
+                const games = await Game.find({title: regex})
+
+                if (games.length > 0) {
+                    return res.json(games)
+                }
+                return res.json([])
+            }
+            else {
+                const clients = await Client.find({name: regex})
+
+                if (clients.length > 0) {
+                    return res.json(clients)
+                }
+                return res.json([])
+            }
+        }
+        catch(e) {
+            throw e
         }
     },
 
